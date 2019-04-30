@@ -25,11 +25,15 @@ public class Kalah {
 			io.println("Player " + playerTurn + "'s turn - Specify house number or 'q' to quit: ");
 			String input = keyboardInput.next();
 			if(input.toLowerCase().equals("q")) {
+				io.println("Quitting game.");
 				break;
 			}
 
 			try {
 				int house = Integer.parseInt(input);
+				if(house < 1 || house > 6) {
+					throw new NumberFormatException();
+				}
 				GameState.getGameState().updateGameState(playerTurn, house);
 			} catch (NumberFormatException e) {
 				io.println("Input not recognised as a command, please enter a valid command");
