@@ -44,9 +44,9 @@ public class Kalah {
 
 	private void drawGameState(IO io, GameState gameState) {
 		io.println("+----+-------+-------+-------+-------+-------+-------+----+");
-		io.println("| P2 | 6[ " + gameState.getSeedsAtHouse(2, 6) + "] | 5[ 4] | 4[ 4] | 3[ 4] | 2[ 4] | 1[ 4] |  " + gameState.getPlayerStore(1) + " |");
+		io.println("| P2 | 6[ " + gameState.getSeedsAtHouse(2, 6) + "] | 5[ " + gameState.getSeedsAtHouse(2, 5) + "] | 4[ " + gameState.getSeedsAtHouse(2, 4) + "] | 3[ " + gameState.getSeedsAtHouse(2, 3) + "] | 2[ " + gameState.getSeedsAtHouse(2, 2) + "] | 1[ " + gameState.getSeedsAtHouse(2, 1) + "] |  " + gameState.getPlayerStore(1) + " |");
 		io.println("|    |-------+-------+-------+-------+-------+-------|    |");
-		io.println("|  " + gameState.getPlayerStore(2) + " | 1[ 4] | 2[ 4] | 3[ 4] | 4[ 4] | 5[ 4] | 6[ 4] | P1 |");
+		io.println("|  " + gameState.getPlayerStore(2) + " | 1[ " + gameState.getSeedsAtHouse(1, 1) + "] | 2[ " + gameState.getSeedsAtHouse(1, 2) + "] | 3[ " + gameState.getSeedsAtHouse(1, 3) + "] | 4[ " + gameState.getSeedsAtHouse(1, 4) + "] | 5[ " + gameState.getSeedsAtHouse(1, 5) + "] | 6[ " + gameState.getSeedsAtHouse(1, 6) + "] | P1 |");
 		io.println("+----+-------+-------+-------+-------+-------+-------+----+");
 	}
 }
