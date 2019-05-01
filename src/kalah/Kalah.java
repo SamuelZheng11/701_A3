@@ -25,24 +25,22 @@ public class Kalah {
             GameState.getGameState().drawGameState(io);
 
 			int playerTurn = GameState.getGameState().getPlayerTurn();
-			io.println("Player " + playerTurn + "'s turn - Specify house number or 'q' to quit: ");
-			String input = keyboardInput.next();
-			if(input.toLowerCase().equals("q")) {
-				io.println("Quitting game.");
-				break;
-			}
-
-			try {
-				int house = Integer.parseInt(input);
+            try {
+                if(GameState.getGameState().playerHasWon(playerTurn)) {
+                    throw new PlayerWonException();
+                }
+                io.println("Player " + Math.addExact(playerTurn, 1) + "'s turn - Specify house number or 'q' to quit: ");
+                String input = keyboardInput.next();
+                if(input.toLowerCase().equals("q")) {
+                    io.println("Quitting game.");
+                    break;
+                }
+                    int house = Integer.parseInt(input);
 				if(house < 1 || house > 6) {
 					throw new NumberOutOfHouseBoundsException();
 				}
 				if(GameState.getGameState().isValidHouse(playerTurn, house)) {
-				    if(!GameState.getGameState().playerHasWon(playerTurn)) {
-                        GameState.getGameState().updateGameState(playerTurn, house);
-                    } else {
-				        throw new PlayerWonException();
-                    }
+                    GameState.getGameState().updateGameState(playerTurn, house);
 				} else {
 				    throw new EmptyHouseSelectedException();
 				}
@@ -50,13 +48,19 @@ public class Kalah {
 				io.println("Input not recognised, please enter a valid command");
 				continue;
 			} catch (NumberOutOfHouseBoundsException e) {
-                io.println("Please enter a valid house number (between 1 and 6 inclusivly)");
+                io.println("Please enter a valid house number (between 1 and 6 inclusively)");
                 continue;
             } catch (EmptyHouseSelectedException e) {
                 io.println("Please select a house that has 1 or more seeds in it");
                 continue;
             } catch (PlayerWonException e) {
-			    io.println("Player " + GameState.getGameState().getPlayerTurn() +" Wins!");
+                if(GameState.getGameState().getPlayerStore(0) - GameState.getGameState().getPlayerStore(1) > 0) {
+                    io.println("Player 1 Wins!");
+                } else if (GameState.getGameState().getPlayerStore(0) - GameState.getGameState().getPlayerStore(1) < 0) {
+                    io.println("Player 2 Wins!");
+                } else {
+                    io.println("Draw, Everyone loses");
+                }
 			    break;
             }
 		}

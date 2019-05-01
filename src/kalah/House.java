@@ -4,7 +4,6 @@ public class House {
     private static final int EMPTY_HOUSE_NUMBER = 0;
     private static final int DEFAULT_HOUSE_NUMBER = 4;
     private int seedCount;
-    private House lowerHouse;
     private House upperHouse;
     private House oppositeHouse;
 
@@ -12,15 +11,14 @@ public class House {
         seedCount = DEFAULT_HOUSE_NUMBER;
     }
 
-    public void setupHouseRelation(House lowerHouse, House higherHouse, House oppositeHouse) {
-        this.lowerHouse = lowerHouse;
+    public void setupHouseRelation(House higherHouse, House oppositeHouse) {
         this.upperHouse = higherHouse;
         this.oppositeHouse = oppositeHouse;
         seedCount = DEFAULT_HOUSE_NUMBER;
     }
 
-    public void addSeed() {
-        seedCount++;
+    public void addSeeds(int seeds) {
+        seedCount += seeds;
     }
 
     public int getAndEmptySeeds() {
@@ -31,6 +29,10 @@ public class House {
 
     public House getOppositeHouse() {
         return this.oppositeHouse;
+    }
+
+    public House getUpperHouse() {
+        return this.upperHouse;
     }
 
     public int getSeedCount() {
