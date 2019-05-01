@@ -2,6 +2,9 @@ package kalah;
 
 import com.qualitascorpus.testsupport.IO;
 import com.qualitascorpus.testsupport.MockIO;
+import kalah.custom_exceptions.EmptyHouseSelectedException;
+import kalah.custom_exceptions.NumberOutOfHouseBoundsException;
+import kalah.custom_exceptions.PlayerWonException;
 
 import java.util.Scanner;
 
@@ -19,7 +22,7 @@ public class Kalah {
 	public void play(IO io) {
 		// Replace what's below with your implementation
 		while(true) {
-			drawGameState(io, GameState.getGameState());
+            GameState.getGameState().drawGameState(io);
 
 			int playerTurn = GameState.getGameState().getPlayerTurn();
 			io.println("Player " + playerTurn + "'s turn - Specify house number or 'q' to quit: ");
@@ -32,25 +35,30 @@ public class Kalah {
 			try {
 				int house = Integer.parseInt(input);
 				if(house < 1 || house > 6) {
-					throw new NumberFormatException();
+					throw new NumberOutOfHouseBoundsException();
 				}
-				GameState.getGameState().updateGameState(playerTurn, house);
+				if(GameState.getGameState().isValidHouse(playerTurn, house)) {
+				    if(!GameState.getGameState().playerHasWon(playerTurn)) {
+                        GameState.getGameState().updateGameState(playerTurn, house);
+                    } else {
+				        throw new PlayerWonException();
+                    }
+				} else {
+				    throw new EmptyHouseSelectedException();
+				}
 			} catch (NumberFormatException e) {
-				io.println("Input not recognised as a command, please enter a valid command");
+				io.println("Input not recognised, please enter a valid command");
 				continue;
-			}
+			} catch (NumberOutOfHouseBoundsException e) {
+                io.println("Please enter a valid house number (between 1 and 6 inclusivly)");
+                continue;
+            } catch (EmptyHouseSelectedException e) {
+                io.println("Please select a house that has 1 or more seeds in it");
+                continue;
+            } catch (PlayerWonException e) {
+			    io.println("Player " + GameState.getGameState().getPlayerTurn() +" Wins!");
+			    break;
+            }
 		}
-	}
-
-	private void getInput(IO io) {
-
-	}
-
-	private void drawGameState(IO io, GameState gameState) {
-		io.println("+----+-------+-------+-------+-------+-------+-------+----+");
-		io.println("| P2 | 6[ " + gameState.getSeedsAtHouse(2, 6) + "] | 5[ " + gameState.getSeedsAtHouse(2, 5) + "] | 4[ " + gameState.getSeedsAtHouse(2, 4) + "] | 3[ " + gameState.getSeedsAtHouse(2, 3) + "] | 2[ " + gameState.getSeedsAtHouse(2, 2) + "] | 1[ " + gameState.getSeedsAtHouse(2, 1) + "] |  " + gameState.getPlayerStore(1) + " |");
-		io.println("|    |-------+-------+-------+-------+-------+-------|    |");
-		io.println("|  " + gameState.getPlayerStore(2) + " | 1[ " + gameState.getSeedsAtHouse(1, 1) + "] | 2[ " + gameState.getSeedsAtHouse(1, 2) + "] | 3[ " + gameState.getSeedsAtHouse(1, 3) + "] | 4[ " + gameState.getSeedsAtHouse(1, 4) + "] | 5[ " + gameState.getSeedsAtHouse(1, 5) + "] | 6[ " + gameState.getSeedsAtHouse(1, 6) + "] | P1 |");
-		io.println("+----+-------+-------+-------+-------+-------+-------+----+");
 	}
 }
