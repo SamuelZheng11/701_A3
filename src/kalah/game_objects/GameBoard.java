@@ -1,4 +1,8 @@
-package kalah;
+package kalah.game_objects;
+
+import kalah.misc.Player_Id;
+import kalah.seed_containers.House;
+import kalah.seed_containers.Store;
 
 import java.util.ArrayList;
 
@@ -50,16 +54,12 @@ public class GameBoard {
         return houseBoard.get(playerId).get(houseIndex);
     }
 
-    public void performCaptureForPlayerAt(int playerId, House targetHouse) {
-        playerStores.get(playerId).addSeedsToStore(targetHouse.getOppositeHouse().getAndEmptySeeds() + 1);
+    public void addSeedToHouse(House house, int numberOfSeeds) {
+        house.addSeeds(numberOfSeeds);
     }
 
-    public void addSeedToHouse(House house) {
-        house.addSeeds(1);
-    }
-
-    public void addSeedToPlayerStore(int playerId){
-        playerStores.get(playerId).addSeedsToStore(1);
+    public void addSeedToPlayerStore(int playerId, int numberOfSeeds){
+        playerStores.get(playerId).addSeeds(numberOfSeeds);
     }
 
     public ArrayList<House> getHousesForPlayer(int playerId) {

@@ -1,6 +1,6 @@
-package kalah;
+package kalah.seed_containers;
 
-public class House {
+public class House implements SeedContainer{
     private static final int EMPTY_HOUSE_NUMBER = 0;
     private static final int DEFAULT_HOUSE_NUMBER = 4;
     private int seedCount;

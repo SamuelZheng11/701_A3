@@ -3,14 +3,17 @@ package kalah;
 import com.qualitascorpus.testsupport.IO;
 import com.qualitascorpus.testsupport.MockIO;
 import kalah.custom_exceptions.EmptyHouseSelectedException;
-import kalah.custom_exceptions.PlayerWonException;
+import kalah.custom_exceptions.EndGameConditionMetException;
+import kalah.custom_exceptions.PlayerQuitException;
+import kalah.game_objects.GameActionPerformer;
+import kalah.game_objects.GameState;
+import kalah.misc.IOHandler;
 
 /**
  * This class is the starting point for a Kalah implementation using
  * the test infrastructure.
  */
 public class Kalah {
-
 	public static void main(String[] args) {
 		new Kalah().play(new MockIO());
 	}
@@ -18,33 +21,36 @@ public class Kalah {
 	public void play(IO io) {
 		// Replace what's below with your implementation
         GameState gameState = new GameState();
-        OutputPrinter printer = new OutputPrinter(io);
+        GameActionPerformer gameActionPerformer = GameActionPerformer.getGameActionPerformer();
+        IOHandler ioHandler = new IOHandler(io);
 		while(true) {
-            printer.drawGameState(gameState);
+            ioHandler.drawGameState(gameState);
 
 			int playerTurn = gameState.getPlayerTurn();
             try {
                 if(gameState.playerHasWon(playerTurn)) {
-                    throw new PlayerWonException();
+                    throw new EndGameConditionMetException();
                 }
-                int inputArgument = io.readInteger("Player P" + (playerTurn+1) + "'s turn - Specify house number or 'q' to quit: ", 1, 6, -1, "q");
-                if(inputArgument == -1) {
-                    printer.printGameOver(gameState);
-                    break;
+                int inputArgument = ioHandler.getInputValue(io, playerTurn);
+                if(inputArgument == ioHandler.getCancelResultConstant()) {
+                    throw new PlayerQuitException();
                 }
 				if(gameState.isValidHouse(playerTurn, inputArgument)) {
-                    gameState.updateGameState(playerTurn, inputArgument);
+                    gameActionPerformer.distributeSeedsAt(playerTurn, inputArgument, gameState);
 				} else {
 				    throw new EmptyHouseSelectedException();
 				}
 			} catch (EmptyHouseSelectedException e) {
-                io.println("House is empty. Move again.");
+                ioHandler.printEmptyHouseMessage();
                 continue;
-            } catch (PlayerWonException e) {
-                printer.printGameOver(gameState);
-                printer.printScore(gameState);
-                printer.printGameResult(gameState);
+            } catch (EndGameConditionMetException e) {
+                ioHandler.printGameOver(gameState);
+                ioHandler.printScore(gameState);
+                ioHandler.printGameResult(gameState);
 			    break;
+            } catch (PlayerQuitException e) {
+                ioHandler.printGameOver(gameState);
+                break;
             }
 		}
 	}

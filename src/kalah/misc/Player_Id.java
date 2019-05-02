@@ -1,4 +1,4 @@
-package kalah;
+package kalah.misc;
 
 public enum Player_Id {
     PLAYER_1(0),

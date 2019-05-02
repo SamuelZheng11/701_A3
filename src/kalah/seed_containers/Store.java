@@ -1,6 +1,6 @@
-package kalah;
+package kalah.seed_containers;
 
-public class Store {
+public class Store implements SeedContainer{
     private static final int STARTING_SEED_VALUE = 0;
     private int seedCount;
 
@@ -8,7 +8,7 @@ public class Store {
         seedCount = STARTING_SEED_VALUE;
     }
 
-    public void addSeedsToStore(int seeds) {
+    public void addSeeds(int seeds) {
         seedCount += seeds;
     }
 
