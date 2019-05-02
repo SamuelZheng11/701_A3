@@ -18,8 +18,9 @@ public class Kalah {
 	public void play(IO io) {
 		// Replace what's below with your implementation
         GameState gameState = new GameState();
+        OutputPrinter printer = new OutputPrinter(io);
 		while(true) {
-            gameState.drawGameState(io);
+            printer.drawGameState(gameState);
 
 			int playerTurn = gameState.getPlayerTurn();
             try {
@@ -28,7 +29,7 @@ public class Kalah {
                 }
                 int inputArgument = io.readInteger("Player P" + (playerTurn+1) + "'s turn - Specify house number or 'q' to quit: ", 1, 6, -1, "q");
                 if(inputArgument == -1) {
-                    this.printGameOver(io, gameState);
+                    printer.printGameOver(gameState);
                     break;
                 }
 				if(gameState.isValidHouse(playerTurn, inputArgument)) {
@@ -40,31 +41,11 @@ public class Kalah {
                 io.println("House is empty. Move again.");
                 continue;
             } catch (PlayerWonException e) {
-                this.printGameOver(io, gameState);
-                this.printScore(io, gameState);
-                this.printGameResult(io, gameState);
+                printer.printGameOver(gameState);
+                printer.printScore(gameState);
+                printer.printGameResult(gameState);
 			    break;
             }
 		}
 	}
-
-	private void printGameOver(IO io, GameState gameState) {
-        io.println("Game over");
-        gameState.drawGameState(io);
-    }
-
-    private void printScore(IO io, GameState gameState) {
-        io.println("\tplayer 1:" + gameState.getPlayerScore(GameState.PLAYER_1_ID));
-        io.println("\tplayer 2:" + gameState.getPlayerScore(GameState.PLAYER_2_ID));
-    }
-
-    private void printGameResult(IO io, GameState gameState) {
-        if(gameState.getPlayerScore(GameState.PLAYER_1_ID) > gameState.getPlayerScore(GameState.PLAYER_2_ID)) {
-            io.println("Player 1 wins!");
-        } else if (gameState.getPlayerScore(GameState.PLAYER_1_ID) < gameState.getPlayerScore(GameState.PLAYER_2_ID)) {
-            io.println("Player 2 wins!");
-        } else {
-            io.println("A tie!");
-        }
-    }
 }
