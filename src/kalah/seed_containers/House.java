@@ -1,29 +1,24 @@
 package kalah.seed_containers;
 
-public class House implements SeedContainer{
-    private static final int EMPTY_HOUSE_NUMBER = 0;
-    private static final int DEFAULT_HOUSE_NUMBER = 4;
-    private int seedCount;
+import kalah.misc.Constants;
+
+public class House extends SeedContainer{
     private House upperHouse;
     private House oppositeHouse;
 
     public House() {
-        seedCount = DEFAULT_HOUSE_NUMBER;
+        seedCount = Constants.STARTING_HOUSE_SEED_VALUE;
     }
 
     public void setupHouseRelation(House higherHouse, House oppositeHouse) {
         this.upperHouse = higherHouse;
         this.oppositeHouse = oppositeHouse;
-        seedCount = DEFAULT_HOUSE_NUMBER;
-    }
-
-    public void addSeeds(int seeds) {
-        seedCount += seeds;
+        seedCount = Constants.STARTING_HOUSE_SEED_VALUE;
     }
 
     public int getAndEmptySeeds() {
         int seedsInHouse = seedCount;
-        seedCount = EMPTY_HOUSE_NUMBER;
+        seedCount = Constants.EMPTY_HOUSE_VALUE;
         return seedsInHouse;
     }
 
@@ -33,9 +28,5 @@ public class House implements SeedContainer{
 
     public House getUpperHouse() {
         return this.upperHouse;
-    }
-
-    public int getSeedCount() {
-        return seedCount;
     }
 }

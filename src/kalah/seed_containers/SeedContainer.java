@@ -1,6 +1,13 @@
 package kalah.seed_containers;
 
-public interface SeedContainer {
-    void addSeeds(int seeds);
-    int getSeedCount();
+public abstract class SeedContainer {
+    protected int seedCount;
+
+    public int getSeedCount() {
+        return seedCount;
+    }
+
+    public void addSeeds(int seeds) {
+        seedCount += seeds;
+    }
 }

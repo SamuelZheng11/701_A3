@@ -1,16 +1,16 @@
 package kalah.misc;
 
-public enum Player_Id {
+public enum PlayerId {
     PLAYER_1(0),
     PLAYER_2(1);
 
     private int numVal;
 
-    Player_Id(int numVal) {
+    PlayerId(int numVal) {
         this.numVal = numVal;
     }
 
-    public int getNumVal() {
+    public int getPlayerValue() {
         return numVal;
     }
 }

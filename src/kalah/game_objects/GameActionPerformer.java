@@ -28,15 +28,15 @@ public class GameActionPerformer {
 
             lastSeedSownAtStore = gameActionLogicService.lastSeedDistributedAtHouse(playerSide, playerId, numberOfSeedsToMove, gameState);
 
-            if (gameActionLogicService.canAddSeedToStore(playerSide, playerId, numberOfSeedsToMove)) {
+            if (gameActionLogicService.addSeedToStoreCondition(playerSide, playerId, numberOfSeedsToMove)) {
                 numberOfSeedsToMove--;
             }
 
             playerSide = gameActionLogicService.determineNextPlayerSide(numberOfSeedsToMove, playerSide);
 
-            targetHouse = gameState.getFirstHouseForPlayer(playerSide);
+            targetHouse = gameActionLogicService.getFirstHouseForPlayer(playerSide, gameState);
         }
 
-        gameState.setPlayerTurn(gameActionLogicService.determineNextPlayerTurn(lastSeedSownAtStore, gameState));
+        gameActionLogicService.setPlayerTurnTo(lastSeedSownAtStore, gameState);
     }
 }

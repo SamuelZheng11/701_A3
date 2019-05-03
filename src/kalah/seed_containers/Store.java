@@ -1,18 +1,9 @@
 package kalah.seed_containers;
 
-public class Store implements SeedContainer{
-    private static final int STARTING_SEED_VALUE = 0;
-    private int seedCount;
+import kalah.misc.Constants;
 
+public class Store extends SeedContainer{
     public Store() {
-        seedCount = STARTING_SEED_VALUE;
-    }
-
-    public void addSeeds(int seeds) {
-        seedCount += seeds;
-    }
-
-    public int getSeedCount() {
-        return seedCount;
+        seedCount = Constants.STARTING_STORE_SEED_VALUE;
     }
 }
