@@ -1,21 +1,27 @@
 package kalah.game_objects;
 
+import kalah.misc.Constants;
+import kalah.misc.PlayerId;
 import kalah.seed_containers.House;
 
 public class GameState {
-    private int playerTurn;
+    private int playerTurn = Constants.DEFAULT_STARTING_PLAYER_ID;
     private GameBoard gameBoard;
 
-    public GameState() {
-        gameBoard = new GameBoard();
+    public GameState(int numberOfPlayers, int numberOfHouses) {
+        gameBoard = new GameBoard(numberOfPlayers, numberOfHouses);
     }
 
     public int getPlayerTurn() {
         return playerTurn;
     }
 
-    public void setPlayerTurn(int playerId) {
-        playerTurn = playerId;
+    public void rotatePlayerTurn() {
+        if(playerTurn + 1 < gameBoard.getNumberOfPlayers()) {
+            playerTurn = playerTurn + 1;
+        } else {
+            playerTurn = PlayerId.PLAYER_1.getPlayerValue();
+        }
     }
 
     public boolean isValidHouse(int playerId, int house) {
@@ -65,5 +71,13 @@ public class GameState {
 
     public void addSeedsToStore(int playerId, int numberOfSeeds) {
         gameBoard.addSeedToPlayerStore(playerId, numberOfSeeds);
+    }
+
+    public int getNumberOfPlayers() {
+        return gameBoard.getNumberOfPlayers();
+    }
+
+    public int getNumberOfHouses() {
+        return gameBoard.getNumberOfHouses();
     }
 }

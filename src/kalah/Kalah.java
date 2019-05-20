@@ -6,6 +6,7 @@ import kalah.game_audit.*;
 import kalah.game_objects.GameActionPerformer;
 import kalah.game_objects.GameState;
 import kalah.IO.IOHandler;
+import kalah.misc.Constants;
 
 /**
  * This class is the starting point for a Kalah implementation using
@@ -18,8 +19,8 @@ public class Kalah {
 
 	public void play(IO io) {
 		// Setup the Kalah game and necessary support classes
-        GameState gameState = new GameState();
-        GameActionPerformer gameActionPerformer = GameActionPerformer.getGameActionPerformer();
+        GameState gameState = new GameState(Constants.DEFAULT_NUMBER_OF_PLAYERS, Constants.DEFAULT_NUMBER_OF_HOUSES);
+        GameActionPerformer gameActionPerformer = new GameActionPerformer();
         IOHandler ioHandler = new IOHandler(io);
         AuditHandler auditHandler = new AuditHandler();
 
@@ -36,7 +37,7 @@ public class Kalah {
                 break;
             }
 
-			int playerTurn = gameState.getPlayerTurn();
+            int playerTurn = gameState.getPlayerTurn();
             int inputArgument = ioHandler.getInputValue(io, playerTurn);
 
 			if (!auditHandler.inputAnomalyPresent(inputArgument, gameState)) {

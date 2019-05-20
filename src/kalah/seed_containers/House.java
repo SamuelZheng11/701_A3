@@ -3,6 +3,7 @@ package kalah.seed_containers;
 import kalah.misc.Constants;
 
 public class House extends SeedContainer{
+    // hold the next house on the board relative to this house (if this house is house 3 the upper house is house 4)
     private House upperHouse;
     private House oppositeHouse;
 

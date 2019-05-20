@@ -3,25 +3,17 @@ package kalah.game_objects;
 import kalah.seed_containers.House;
 
 public class GameActionPerformer {
-    private static GameActionPerformer gameActionPerformer;
     private GameActionLogicService gameActionLogicService = new GameActionLogicService();
 
-    private GameActionPerformer() {}
-
-    public static GameActionPerformer getGameActionPerformer() {
-        if (gameActionPerformer == null) {
-            gameActionPerformer = new GameActionPerformer();
-        }
-        return gameActionPerformer;
-    }
-
     public void distributeSeedsAt(int playerId, int house, GameState gameState) {
+        // sets up the logic flow for a player's turn
         int playerSide = playerId;
         int houseIndex = house - 1;
         boolean lastSeedSownAtStore = false;
         int numberOfSeedsToMove = gameState.moveSeedsAt(playerSide, houseIndex);
         House targetHouse = gameState.getHouseAt(playerSide, houseIndex).getUpperHouse();
 
+        // don't stop distributing the seeds until there are 0 seeds left to sow
         while (numberOfSeedsToMove > 0) {
 
             numberOfSeedsToMove = gameActionLogicService.distributeSeedsOnPlayerSide(targetHouse, numberOfSeedsToMove, playerSide, gameState);
@@ -37,6 +29,6 @@ public class GameActionPerformer {
             targetHouse = gameActionLogicService.getFirstHouseForPlayer(playerSide, gameState);
         }
 
-        gameActionLogicService.setPlayerTurnTo(lastSeedSownAtStore, gameState);
+        gameActionLogicService.rotatePlayerTurnIfNeeded(lastSeedSownAtStore, gameState);
     }
 }
