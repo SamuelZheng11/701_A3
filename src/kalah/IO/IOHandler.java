@@ -1,6 +1,7 @@
 package kalah.IO;
 
 import com.qualitascorpus.testsupport.IO;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import kalah.game_objects.GameState;
 import kalah.misc.Constants;
 import kalah.misc.PlayerId;
@@ -11,21 +12,23 @@ public class IOHandler {
     public IOHandler(IO io) {
         this.io = io;
     }
-
+    
     public void drawGameState(GameState gameState) {
         // Some of the logic in this class will need to be changed based on how many people play (will need to be refactored further)
-        io.println("+----+-------+-------+-------+-------+-------+-------+----+");
-        for (int i = gameState.getNumberOfPlayers(); i > 0 ; i--) {
-            if(i%2 == 0) {
-                io.println(printForward(gameState, i));
-            } else {
-                io.println(printReverse(gameState, i));
-            }
-            if (i != 1) {
-                io.println("|    |-------+-------+-------+-------+-------+-------|    |");
-            }
+        io.println("+-------+-------+");
+        io.println("|       | P2 " + formatWhiteSpaceForNumber(gameState.getPlayerStoreScore(PlayerId.PLAYER_2.getPlayerValue())) +" |");
+
+        for (int i = 0; i < Constants.DEFAULT_NUMBER_OF_HOUSES; i++) {
+            io.println(printVerticalHouses(gameState, i));
         }
-        io.println("+----+-------+-------+-------+-------+-------+-------+----+");
+
+        io.println("+-------|-------+");
+        io.println("| P1 " + formatWhiteSpaceForNumber(gameState.getPlayerStoreScore(PlayerId.PLAYER_1.getPlayerValue())) + " |       |");
+        io.println("+-------+-------+");
+    }
+
+    private String printVerticalHouses(GameState gameState, int leftHouseBoardNumberIndex) {
+        return "| "+ (leftHouseBoardNumberIndex + 1) + "["+ formatWhiteSpaceForNumber(gameState.getSeedsAtHouse(PlayerId.PLAYER_1.getPlayerValue(), leftHouseBoardNumberIndex)) + "] | " + (Constants.DEFAULT_NUMBER_OF_HOUSES - leftHouseBoardNumberIndex) + "[" + formatWhiteSpaceForNumber(gameState.getSeedsAtHouse(PlayerId.PLAYER_2.getPlayerValue(), (Constants.DEFAULT_NUMBER_OF_HOUSES - leftHouseBoardNumberIndex - 1))) + "] |";
     }
 
     // This layout needs to be changed if the number of people playing is odd due to the restrictions in the test
