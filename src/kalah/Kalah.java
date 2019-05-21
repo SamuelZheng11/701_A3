@@ -2,10 +2,12 @@ package kalah;
 
 import com.qualitascorpus.testsupport.IO;
 import com.qualitascorpus.testsupport.MockIO;
+import kalah.IO.BoardLayout;
 import kalah.game_audit.*;
 import kalah.game_objects.GameActionPerformer;
 import kalah.game_objects.GameState;
 import kalah.IO.IOHandler;
+import kalah.misc.BoardLayoutType;
 import kalah.misc.Constants;
 
 /**
@@ -13,6 +15,8 @@ import kalah.misc.Constants;
  * the test infrastructure.
  */
 public class Kalah {
+    private BoardLayoutType boardLayoutType;
+
 	public static void main(String[] args) {
 		new Kalah().play(new MockIO());
 	}
@@ -21,8 +25,9 @@ public class Kalah {
 		// Setup the Kalah game and necessary support classes
         GameState gameState = new GameState(Constants.DEFAULT_NUMBER_OF_PLAYERS, Constants.DEFAULT_NUMBER_OF_HOUSES);
         GameActionPerformer gameActionPerformer = new GameActionPerformer();
-        IOHandler ioHandler = new IOHandler(io);
+        IOHandler ioHandler = new IOHandler(io, Constants.DEFAULT_BOARD_LAYOUT);
         AuditHandler auditHandler = new AuditHandler();
+        boardLayoutType = Constants.DEFAULT_BOARD_LAYOUT;
 
 		while(true) {
             ioHandler.drawGameState(gameState);

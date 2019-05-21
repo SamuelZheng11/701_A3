@@ -10,7 +10,7 @@ public enum BoardLayoutType {
         this.numVal = numVal;
     }
 
-    public int getBoardLayout() {
+    public int getBoardLayoutTypeId() {
         return numVal;
     }
 }

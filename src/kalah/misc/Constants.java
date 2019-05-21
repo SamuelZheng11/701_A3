@@ -12,4 +12,5 @@ public class Constants {
     public static final int DEFAULT_NUMBER_OF_PLAYERS = 2;
     public static final int DEFAULT_STARTING_PLAYER_ID = PlayerId.PLAYER_1.getPlayerValue();
     public static int FORMAT_TRIGGER_VALUE = 10;
+    public static BoardLayoutType DEFAULT_BOARD_LAYOUT = BoardLayoutType.Horizontal;
 }
