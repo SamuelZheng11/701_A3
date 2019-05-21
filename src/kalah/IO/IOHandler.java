@@ -2,9 +2,7 @@ package kalah.IO;
 
 import com.qualitascorpus.testsupport.IO;
 import kalah.IO.BoardLayout.BoardLayout;
-import kalah.IO.BoardLayout.HorizontalBoardLayout;
 import kalah.game_objects.GameState;
-import kalah.IO.BoardLayout.BoardLayoutType;
 import kalah.misc.LogicalConstants;
 import kalah.misc.PlayerId;
 
@@ -13,13 +11,9 @@ public class IOHandler {
     private BoardLayout boardLayout;
     private GameOverManager gameOverManager;
 
-    public IOHandler(IO io, BoardLayoutType boardLayoutType) {
+    public IOHandler(IO io, BoardLayout boardLayout) {
         this.io = io;
-
-        // can be used in future to enforce what type of layout/printing strategy to use (strategy pattern)
-        if(boardLayoutType.getBoardLayoutTypeId() == BoardLayoutType.Horizontal.getBoardLayoutTypeId()) {
-            boardLayout = new HorizontalBoardLayout(new SeedDigitFormatter());
-        }
+        this.boardLayout = boardLayout;
     }
 
     public void drawGameState(GameState gameState) {
@@ -48,7 +42,7 @@ public class IOHandler {
         io.println(PrintableConstants.EMPTY_HOUSE_MOVE_AGAIN_MESSAGE);
     }
 
-    public int getUserInput(IO io, int playerTurn) {
+    public int getUserInput(int playerTurn) {
         return io.readInteger("Player P" + (playerTurn+1) + "'s turn - Specify house number or 'q' to quit: ", LogicalConstants.LOWER_INPUT_RANGE, LogicalConstants.UPPER_INPUT_RANGE, LogicalConstants.CANCEL_RESULT_OUTPUT, LogicalConstants.CANCEL_RESULT_DISPLAY_VALUE);
     }
 }
