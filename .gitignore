@@ -14,6 +14,7 @@
 .idea/**/shelf
 .idea/**
 *.iml
+*.MF
 out
 
 # Generated files
