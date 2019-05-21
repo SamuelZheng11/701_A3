@@ -1,6 +1,8 @@
 package kalah.misc;
 
-public class Constants {
+import kalah.IO.BoardLayout.BoardLayoutType;
+
+public class LogicalConstants {
     public static final int LOWER_INPUT_RANGE = 1;
     public static final int UPPER_INPUT_RANGE = 6;
     public static final int CANCEL_RESULT_OUTPUT = -1;

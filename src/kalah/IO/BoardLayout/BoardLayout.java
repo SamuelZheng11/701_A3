@@ -1,4 +1,4 @@
-package kalah.IO;
+package kalah.IO.BoardLayout;
 
 import kalah.game_objects.GameState;
 

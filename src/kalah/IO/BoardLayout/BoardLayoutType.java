@@ -1,8 +1,7 @@
-package kalah.misc;
+package kalah.IO.BoardLayout;
 
 public enum BoardLayoutType {
-    Vertical(0),
-    Horizontal(1);
+    Horizontal(0);
 
     private int numVal;
 

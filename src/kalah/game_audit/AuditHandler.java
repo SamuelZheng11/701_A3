@@ -1,7 +1,7 @@
 package kalah.game_audit;
 
 import kalah.game_objects.GameState;
-import kalah.misc.Constants;
+import kalah.misc.LogicalConstants;
 
 public class AuditHandler {
 
@@ -21,7 +21,7 @@ public class AuditHandler {
         // switch case for determining what the thing that requires further action is
         if(gameStateAnomalyPresent(gameState)) {
             return AuditType.EndCondition;
-        } else if(inputArgument == Constants.CANCEL_RESULT_OUTPUT) {
+        } else if(inputArgument == LogicalConstants.CANCEL_RESULT_OUTPUT) {
             return AuditType.PlayerQuit;
         } else if(!gameState.isValidHouse(gameState.getPlayerTurn(), inputArgument)) {
             return AuditType.EmptyHouse;

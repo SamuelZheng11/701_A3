@@ -1,11 +1,11 @@
 package kalah.game_objects;
 
-import kalah.misc.Constants;
+import kalah.misc.LogicalConstants;
 import kalah.misc.PlayerId;
 import kalah.seed_containers.House;
 
 public class GameState {
-    private int playerTurn = Constants.DEFAULT_STARTING_PLAYER_ID;
+    private int playerTurn = LogicalConstants.DEFAULT_STARTING_PLAYER_ID;
     private GameBoard gameBoard;
 
     public GameState(int numberOfPlayers, int numberOfHouses) {
