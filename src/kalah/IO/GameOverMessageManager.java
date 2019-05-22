@@ -3,10 +3,10 @@ package kalah.IO;
 import kalah.game_objects.GameState;
 import kalah.misc.PlayerId;
 
-public class GameOverManager {
+public class GameOverMessageManager {
     private GameState gameState;
 
-    public GameOverManager(GameState gameState) {
+    public GameOverMessageManager(GameState gameState) {
         this.gameState = gameState;
     }
 

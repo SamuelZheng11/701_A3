@@ -2,7 +2,7 @@ package kalah;
 
 import com.qualitascorpus.testsupport.IO;
 import kalah.IO.BoardLayout.HorizontalBoardLayout;
-import kalah.IO.GameOverManager;
+import kalah.IO.GameOverMessageManager;
 import kalah.IO.IOHandler;
 import kalah.IO.SeedDigitFormatter;
 import kalah.game_audit.AuditHandler;
@@ -33,7 +33,7 @@ public class GameManager {
                 // this if statement does not have any switch statements because there is only one type of game state anomaly
                 // and that is when all houses on one side is 0, In future a switch case could be added if there are more
                 // types of game state anomaly
-                ioHandler.setGameOverManager(new GameOverManager(gameState));
+                ioHandler.setGameOverMessageManager(new GameOverMessageManager(gameState));
                 ioHandler.printGameSummary(gameState);
                 break;
             }
@@ -48,11 +48,11 @@ public class GameManager {
                 if (auditType == AuditType.EmptyHouse) {
                     ioHandler.userSelectedAnEmptyHouseMessage();
                 } else if (auditType == AuditType.PlayerQuit) {
-                    ioHandler.setGameOverManager(new GameOverManager(gameState));
+                    ioHandler.setGameOverMessageManager(new GameOverMessageManager(gameState));
                     ioHandler.printEndGameMessageSet(gameState);
                     break;
                 } else if (auditType == AuditType.EndCondition) {
-                    ioHandler.setGameOverManager(new GameOverManager(gameState));
+                    ioHandler.setGameOverMessageManager(new GameOverMessageManager(gameState));
                     ioHandler.printGameSummary(gameState);
                     break;
                 }

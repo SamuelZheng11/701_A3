@@ -9,7 +9,7 @@ import kalah.misc.PlayerId;
 public class IOHandler {
     private IO io;
     private BoardLayout boardLayout;
-    private GameOverManager gameOverManager;
+    private GameOverMessageManager gameOverMessageManager;
 
     public IOHandler(IO io, BoardLayout boardLayout) {
         this.io = io;
@@ -22,19 +22,19 @@ public class IOHandler {
         }
     }
 
-    public void setGameOverManager(GameOverManager gameOverManager) {
-        this.gameOverManager = gameOverManager;
+    public void setGameOverMessageManager(GameOverMessageManager gameOverMessageManager) {
+        this.gameOverMessageManager = gameOverMessageManager;
     }
 
     public void printGameSummary(GameState gameState){
         printEndGameMessageSet(gameState);
-        io.println(gameOverManager.getPlayerScoreFor(PlayerId.PLAYER_1));
-        io.println(gameOverManager.getPlayerScoreFor(PlayerId.PLAYER_2));
-        io.println(gameOverManager.getResultMessage(gameState));
+        io.println(gameOverMessageManager.getPlayerScoreFor(PlayerId.PLAYER_1));
+        io.println(gameOverMessageManager.getPlayerScoreFor(PlayerId.PLAYER_2));
+        io.println(gameOverMessageManager.getResultMessage(gameState));
     }
 
     public void printEndGameMessageSet(GameState gameState) {
-        io.println(gameOverManager.getGameOverMessage());
+        io.println(gameOverMessageManager.getGameOverMessage());
         drawGameState(gameState);
     }
 
