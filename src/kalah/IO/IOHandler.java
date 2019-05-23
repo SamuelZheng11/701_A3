@@ -1,7 +1,6 @@
 package kalah.IO;
 
 import com.qualitascorpus.testsupport.IO;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import kalah.game_objects.GameState;
 import kalah.misc.Constants;
 import kalah.misc.PlayerId;
@@ -17,6 +16,7 @@ public class IOHandler {
         // Some of the logic in this class will need to be changed based on how many people play (will need to be refactored further)
         io.println("+-------+-------+");
         io.println("|       | P2 " + formatWhiteSpaceForNumber(gameState.getPlayerStoreScore(PlayerId.PLAYER_2.getPlayerValue())) +" |");
+        io.println("+---------------+");
 
         for (int i = 0; i < Constants.DEFAULT_NUMBER_OF_HOUSES; i++) {
             io.println(printVerticalHouses(gameState, i));
