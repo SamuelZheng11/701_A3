@@ -14,17 +14,17 @@ public class IOHandler {
     
     public void drawGameState(GameState gameState) {
         // Some of the logic in this class will need to be changed based on how many people play (will need to be refactored further)
-        io.println("+-------+-------+");
-        io.println("|       | P2 " + formatWhiteSpaceForNumber(gameState.getPlayerStoreScore(PlayerId.PLAYER_2.getPlayerValue())) +" |");
         io.println("+---------------+");
+        io.println("|       | P2 " + formatWhiteSpaceForNumber(gameState.getPlayerStoreScore(PlayerId.PLAYER_2.getPlayerValue())) +" |");
+        io.println("+-------+-------+");
 
         for (int i = 0; i < Constants.DEFAULT_NUMBER_OF_HOUSES; i++) {
             io.println(printVerticalHouses(gameState, i));
         }
 
-        io.println("+-------|-------+");
-        io.println("| P1 " + formatWhiteSpaceForNumber(gameState.getPlayerStoreScore(PlayerId.PLAYER_1.getPlayerValue())) + " |       |");
         io.println("+-------+-------+");
+        io.println("| P1 " + formatWhiteSpaceForNumber(gameState.getPlayerStoreScore(PlayerId.PLAYER_1.getPlayerValue())) + " |       |");
+        io.println("+---------------+");
     }
 
     private String printVerticalHouses(GameState gameState, int leftHouseBoardNumberIndex) {
@@ -91,6 +91,6 @@ public class IOHandler {
     }
 
     public int getInputValue(IO io, int playerTurn) {
-        return io.readInteger("Player P" + (playerTurn+1) + "'s turn - Specify house number or 'q' to quit: ", Constants.LOWER_INPUT_RANGE, Constants.UPPER_INPUT_RANGE, Constants.CANCEL_RESULT_OUTPUT, Constants.CANCEL_RESULT_DISPLAY_VALUE);
+        return io.readInteger("Player P" + (playerTurn+1) + "'s turn - Specify house number or 'q' to quit:", Constants.LOWER_INPUT_RANGE, Constants.UPPER_INPUT_RANGE, Constants.CANCEL_RESULT_OUTPUT, Constants.CANCEL_RESULT_DISPLAY_VALUE);
     }
 }
